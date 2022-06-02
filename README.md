@@ -87,4 +87,68 @@ account = account[0]
 ```
 ❗Note - You will need ETH to pay for gas fees. You can obtain ETH from the Rinkeby Testnet Faucet [here.](https://rinkebyfaucet.com/)
 
+## Step 6: Get WETH
+
+1. We need our program to obtain WETH to use for borrowing. For this we will need another `.py` file in our scripts folder. For this example we will name it `get_weth.py`.
+❗Note - If you run into an issue with running your **main** script, you may need to add this additional file in your scripts folder to direct Python to handle multiple packages:
+```
+__init__.py
+```
+
+* In order to call the WETH contract, we need the **contract address** and the [**ABI**](https://www.quicknode.com/guides/solidity/what-is-an-abi). The quickest way is to compile the interface of the WETH contract and extracting the ABI from the build folder. The WETH interface can be found below:
+```solidity
+pragma solidity ^0.4.19;
+
+interface IWeth {
+  function allowance(address owner, address spender) external view returns (uint256 remaining);
+  function approve(address spender, uint256 value) external returns (bool success);
+  function balanceOf(address owner) external view returns (uint256 balance);
+  function decimals() external view returns (uint8 decimalPlaces);
+  function name() external view returns (string memory tokenName);
+  function symbol() external view returns (string memory tokenSymbol);
+  function totalSupply() external view returns (uint256 totalTokensIssued);
+  function transfer(address to, uint256 value) external returns (bool success);
+  function transferFrom(address from, address to, uint256 value) external returns (bool success);
+  function deposit() external;
+  function withdraw(uint wad) external;
+}
+```
+
+* Once added to your **interfaces** folder, run the following command in the terminal:
+```
+brownie compile
+```
+* This command will compile the interface and allow it to be imported to our `get_weth.py`.
+
+2. Now we can set a variable to the IWETH interface and pass in the token address of WETH:
+```python
+weth = interface.IWeth("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2")
+```
+
+3. Next, we need to define a transaction variable to handle the deposit of WETH. Then we can add our `main()` to finish off our file:
+```python
+from brownie import interface
+
+
+def main():
+    """
+    Runs the get_weth function to get WETH
+    """
+    get_weth()
+
+
+def get_weth(account):
+    print("Getting WETH...")
+    weth = interface.IWeth("0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2")
+    tx = weth.deposit({"from": account, "value": 0.1 * 1e18})
+    tx.wait(1)
+    print("Received 0.1 WETH")
+    return tx
+```
+
+4. Lastly we import the `get_weth.py` file into our main script file:
+```python
+From scripts.get_weth import get_weth
+```
+
 
