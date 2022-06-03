@@ -1,4 +1,4 @@
-# Your Personal Aave Borrow Bot 🤖
+# Aave Borrow Bot 🤖
 #### After completing this guide, you will have a general understanding of lending/borrowing and how to automate it.
 ###### 25 minute read 📖
 
