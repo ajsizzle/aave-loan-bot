@@ -90,7 +90,8 @@ account = account[0]
 ## Step 6: Get WETH
 
 1. We need our program to obtain WETH to use for borrowing. For this we will need another `.py` file in our scripts folder. For this example we will name it `get_weth.py`.
-❗Note - If you run into an issue with running your **main** script, you may need to add this additional file in your scripts folder to direct Python to handle multiple packages:
+
+	❗Note - If you run into an issue with running your **main** script, you may need to add this additional file in your scripts folder to direct Python to handle multiple packages:
 ```
 __init__.py
 ```
