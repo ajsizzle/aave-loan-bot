@@ -152,4 +152,26 @@ def get_weth(account):
 From scripts.get_weth import get_weth
 ```
 
+## Step 7: Forking the ETH Mainnet w/ Alchemy
 
+### What is Forking a Chain?
+
+* This involves pointing to the active Ethereum Mainnet and then simulating transactions on our local development blockchain instead. 
+---
+1. To achieve this we need a [blockchain node](https://www.blockchain-council.org/blockchain/blockchain-nodes/) to connect to. This is where **Alchemy** comes in. Set up your account [**here**](https://www.alchemy.com/). Your dashboard will look like this:
+
+<img width="1353" alt="2022-06-02_15-54-04" src="https://user-images.githubusercontent.com/17716182/171778446-20928a9d-65f6-4646-97bf-38e0d719fde9.png">
+
+
+2. Select the Apps tab at the top of the page then **Create App**. Name it "Forking Chain" then **Create app**
+
+<img width="1353" alt="2022-06-02_22-46-10" src="https://user-images.githubusercontent.com/17716182/171778756-8eb90ecc-bf57-43d1-8f90-e77ae05783cf.png">
+
+3. Find **VIEW KEY** and **copy** the HTTP Key.
+
+<img width="1353" alt="2022-06-02_22-43-01" src="https://user-images.githubusercontent.com/17716182/171778728-e41cdfd5-d7a5-4736-8b6d-0405b55985d6.png">
+
+4. Now we can modify the network with the command line:
+```
+brownie networks modify mainnet-fork host="YOUR_HTTP_KEY"
+```
